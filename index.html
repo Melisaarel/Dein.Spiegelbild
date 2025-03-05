@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zitate aus dem Roman 📖</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #2c2c2c;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 50px;
+        }
+        .quote-box {
+            width: 70%;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        .quote {
+            font-size: 22px;
+            font-style: italic;
+        }
+        .author {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        .share-buttons {
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .twitter { background: #1DA1F2; color: white; }
+        .facebook { background: #1877F2; color: white; }
+        .instagram { background: #E1306C; color: white; }
+        img {
+            width: 55%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quote-box">
+        <p id="quote" class="quote">"Das wahre Licht wird aus der Dunkelheit geboren."</p>
+        <p id="author" class="author">- Arel Şihab</p>
+        <p id="hashtag" class="author">#LichtUndSchatten #MelisasReise</p>
+        <img id="quoteImage" src="https://raw.githubusercontent.com/Melisaarel/png-melisa/main/tuvalde%20mutlu%20olduklar%C4%B1%20anlar.webp" alt="Alıntı Görseli" />
+        <div class="share-buttons">
+            <button class="btn twitter" onclick="shareOnTwitter()">Auf Twitter teilen</button>
+            <button class="btn facebook" onclick="shareOnFacebook()">Auf Facebook teilen</button>
+            <button class="btn instagram" onclick="shareOnInstagram()">Auf Instagram teilen</button>
+        </div>
+        <button class="btn" onclick="nextQuote()">Neues Zitat 📖</button>
+    </div>
+
+    <script>
+       const quotes = [
+            { text: "Entdecke die Quelle deines eigenen Lichts.", author: "Melisa", hashtag: "#InnereEntdeckung" },
+            { text: "Ich habe verstanden, dass ich mich der Dunkelheit stellen muss, um mein eigenes Licht zu finden.", author: "Melisa", hashtag: "#InnereEntdeckung" },
+            { text: "Du bist die Tür der türlosen Räume.", author: "Arel Şihab", hashtag: "#TürenUndRäume" },
+            { text: "Wahre Mitgefühl und Barmherzigkeit sind das, was einen Menschen wirklich menschlich macht.", author: "Arel Şihab", hashtag: "#Mitgefühl" },
+            { text: "Hier ist die Zeit nur ein dünner Schleier der Realität. Es gibt keine Angst vor der Vergangenheit, keine Sorge um die Zukunft. Wir sind einfach ‚im Jetzt‘ mit dir.", author: "Arel Şihab", hashtag: "#ImJetzt" },
+            { text: "Die Efeu-Ranken, die dich umgeben, sind nur die hässlichen Worte, die du gehört hast. Solange du nicht an sie glaubst, können sie dich nicht gefangen halten.", author: "Efe", hashtag: "#OhneWurzeln" },
+            { text: "Du bist der Maler deiner eigenen Geschichte. Jeder Pinselstrich gehört dir.", author: "Mira", hashtag: "#SchreibeDeineGeschichte" },
+            { text: "Kunst wächst, wenn sie geteilt wird, Melisa. In jedem Menschen steckt ein Künstler. Man braucht nur ein wenig Mut, um ihn zu entdecken.", author: "Arel Şihab", hashtag: "#TeileDieKunst" },
+            { text: "Du kannst dich selbst nicht erkennen, ohne tief in deine Seele zu blicken.", author: "Melisa", hashtag: "#Tiefgang" },
+            { text: "Schatten sind manchmal die Vorboten des hellsten Lichts.", author: "Arel Şihab", hashtag: "#Schatten" },
+            { text: "Höre auf die leisen Stimmen deines Herzens, du wirst deinen Weg finden.", author: "Melisa", hashtag: "#WegDesHerzens" },
+            { text: "Manche Türen öffnen sich nur zur richtigen Zeit.", author: "Arel Şihab", hashtag: "#TürDerZeit" },
+            { text: "Zerbrochene Spiegel reflektieren die wahrhaftigsten Gesichter.", author: "Melisa", hashtag: "#ZerbrochenerSpiegel" },
+            { text: "Nicht deine Worte, sondern dein Schweigen sagt mir mehr.", author: "Arel Şihab", hashtag: "#Stille" },
+            { text: "Eine Reise beginnt immer nicht mit den Schritten, sondern mit der Seele.", author: "Melisa", hashtag: "#Seelenreise" },
+            { text: "Verliere dich nicht in den Schatten der Vergangenheit, entzünde dein eigenes Licht.", author: "Arel Şihab", hashtag: "#FreiheitVonDerVergangenheit" },
+            { text: "Manchmal ist ein einziges Wort so wertvoll wie ein ganzes Leben.", author: "Melisa", hashtag: "#MachtDerWorte" },
+            { text: "Reiße die Mauern deines Geistes ein, entdecke neue Welten.", author: "Arel Şihab", hashtag: "#ToreDesGeistes" },
+            { text: "Nach dem letzten Pinselstrich blickte Melisa mit leuchtenden Augen auf das Gemälde. Es ist... viel schöner geworden, als ich es mir vorgestellt habe.", author: "Melisa", hashtag: "#Träume" },
+            { text: "Heute werden wir gemeinsam malen, sagte Arel. Stell dir einen Tag vor, an dem du dich am glücklichsten fühlst, und bringe ihn auf die Leinwand.", author: "Arel Şihab", hashtag: "#Leinwand" },
+            { text: "Vergebung ist kein Geschenk für jemand anderen, sondern für deine eigene Seele.", author: "Melisa", hashtag: "#Vergebung" },
+            { text: "Manche Wege muss man alleine gehen.", author: "Arel Şihab", hashtag: "#AlleinigerWeg" },
+            { text: "Manchmal haben die Dinge ihre eigene Zeit, Melisa. Aber das schmälert nicht den Wert der Momente, die wir hier verbracht haben.", author: "Arel Şihab", hashtag: "#Zeit" },
+            { text: "Melisa akzeptierte in diesem Moment, dass Arel gegangen war, doch die gelebte Realität wurde ihr in jeder Sekunde durch die Hoffnung vor Augen geführt, die voller Leben vor ihr stand.", author: "Melisa", hashtag: "#Hoffnung" },
+            { text: "Deine Reise ist zu Ende, Melisa. Jetzt bist du dein eigenes Licht.", author: "Arel Şihab", hashtag: "#DuBistLicht" },
+            { text: "Türen existieren nur, um durchschritten zu werden. Doch manchmal musst du durch die falschen gehen, um die richtige zu finden.", author: "Arel Şihab", hashtag: "#Türen" },
+            { text: "Hab keine Angst, deine eigene Geschichte zu schreiben.", author: "Melisa", hashtag: "#DeineGeschichte" },
+            { text: "Du kannst deine Tränen nicht aufhalten, aber sie sind nicht aus Traurigkeit, sondern aus der Freude über eine beendete Geschichte, die dir gehört.", author: "Melisa", hashtag: "#DeineGeschichte" },
+            { text: "Vergiss nicht, du bist das Licht. Egal, was passiert, bleib nicht zwischen den Welten hängen. Der Schlüssel, der die Türen öffnet, liegt in dir.", author: "Arel Şihab", hashtag: "#ZwischenWelten" },
+            { text: "Alle Antworten sind in uns verborgen.", author: "Melisa", hashtag: "#DeineAntworten" },
+            { text: "Ist Kunst nicht ein Risiko? Jeder Pinselstrich, jede Farbwahl ist der Versuch, eine Emotion zu berühren. Den Menschen Schönheit zu zeigen, ist die Aufgabe eines Künstlers.", author: "Arel Şihab", hashtag: "#KunstRisiko" },
+            { text: "Was du suchst, war nie weit von dir entfernt. Doch wann wirst du aufhören, in den Spiegel zu schauen, und anfangen, dich selbst zu sehen?", author: "Arel Şihab", hashtag: "#Ausstellung" },
+            { text: "Die Ausstellung ist dein Herz, Melisa. Jetzt sind die Jasminblüten in dir. Ihr Duft kommt aus deiner Seele. Und nun kannst nur du diese Blumen gießen.", author: "Arel Şihab", hashtag: "#TürenUndRäume" }
+        ];
+
+
+        function nextQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            document.getElementById('quote').textContent = `"${quotes[randomIndex].text}"`;
+            document.getElementById('author').textContent = `- ${quotes[randomIndex].author}`;
+            document.getElementById('hashtag').textContent = `${quotes[randomIndex].hashtag} #Călătoria Melisei`;
+        }
+
+        function shareOnTwitter() {
+            const quote = document.getElementById('quote').textContent;
+            const author = document.getElementById('author').textContent;
+            const hashtag = document.getElementById('hashtag').textContent.replace("#", "%23");
+            const imageUrl = document.getElementById('quoteImage').src;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quote + ' ' + author + ' ' + hashtag)}&url=${encodeURIComponent(imageUrl)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnFacebook() {
+            const quote = document.getElementById('quote').textContent;
+            const author = document.getElementById('author').textContent;
+            const imageUrl = document.getElementById('quoteImage').src;
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(imageUrl)}&quote=${encodeURIComponent(quote + ' ' + author)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnInstagram() {
+            const quote = document.getElementById('quote').textContent;
+            const author = document.getElementById('author').textContent;
+            const hashtag = document.getElementById('hashtag').textContent;
+            const imageUrl = document.getElementById('quoteImage').src;
+            const textToCopy = `${quote} ${author} ${hashtag}\n\nGörsel: ${imageUrl}`;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Das Zitat und der Bildlink wurden kopiert! Sie können sie einfügen, wenn Sie auf Instagram posten. 📲");
+            });
+        }
+    </script>
+</body>
+</html>
